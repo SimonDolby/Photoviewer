@@ -27,6 +27,9 @@ Partial Class frmPhotoviewer
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnOpenFolder = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnEdit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FlickrToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnAuthentication = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnUploadToFlickr = New System.Windows.Forms.ToolStripMenuItem()
         Me.pictImage = New System.Windows.Forms.PictureBox()
         Me.btnNextPhoto = New System.Windows.Forms.Button()
         Me.btnPreviousPhoto = New System.Windows.Forms.Button()
@@ -34,6 +37,8 @@ Partial Class frmPhotoviewer
         Me.lblSize = New System.Windows.Forms.ToolStripLabel()
         Me.lblResolution = New System.Windows.Forms.ToolStripLabel()
         Me.lblFileName = New System.Windows.Forms.ToolStripLabel()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.pictImage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
@@ -41,7 +46,7 @@ Partial Class frmPhotoviewer
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.btnEdit})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.btnEdit, Me.FlickrToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
@@ -68,13 +73,32 @@ Partial Class frmPhotoviewer
         Me.btnEdit.Size = New System.Drawing.Size(39, 20)
         Me.btnEdit.Text = "Edit"
         '
+        'FlickrToolStripMenuItem
+        '
+        Me.FlickrToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnAuthentication, Me.btnUploadToFlickr})
+        Me.FlickrToolStripMenuItem.Name = "FlickrToolStripMenuItem"
+        Me.FlickrToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
+        Me.FlickrToolStripMenuItem.Text = "Flickr"
+        '
+        'btnAuthentication
+        '
+        Me.btnAuthentication.Name = "btnAuthentication"
+        Me.btnAuthentication.Size = New System.Drawing.Size(153, 22)
+        Me.btnAuthentication.Text = "Authentication"
+        '
+        'btnUploadToFlickr
+        '
+        Me.btnUploadToFlickr.Name = "btnUploadToFlickr"
+        Me.btnUploadToFlickr.Size = New System.Drawing.Size(153, 22)
+        Me.btnUploadToFlickr.Text = "Upload"
+        '
         'pictImage
         '
         Me.pictImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.pictImage.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pictImage.Location = New System.Drawing.Point(0, 24)
         Me.pictImage.Name = "pictImage"
-        Me.pictImage.Size = New System.Drawing.Size(1019, 581)
+        Me.pictImage.Size = New System.Drawing.Size(1019, 611)
         Me.pictImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.pictImage.TabIndex = 1
         Me.pictImage.TabStop = False
@@ -87,7 +111,7 @@ Partial Class frmPhotoviewer
         Me.btnNextPhoto.FlatAppearance.BorderSize = 0
         Me.btnNextPhoto.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnNextPhoto.Image = CType(resources.GetObject("btnNextPhoto.Image"), System.Drawing.Image)
-        Me.btnNextPhoto.Location = New System.Drawing.Point(973, 296)
+        Me.btnNextPhoto.Location = New System.Drawing.Point(973, 311)
         Me.btnNextPhoto.Name = "btnNextPhoto"
         Me.btnNextPhoto.Size = New System.Drawing.Size(46, 36)
         Me.btnNextPhoto.TabIndex = 2
@@ -100,7 +124,7 @@ Partial Class frmPhotoviewer
         Me.btnPreviousPhoto.FlatAppearance.BorderSize = 0
         Me.btnPreviousPhoto.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnPreviousPhoto.Image = CType(resources.GetObject("btnPreviousPhoto.Image"), System.Drawing.Image)
-        Me.btnPreviousPhoto.Location = New System.Drawing.Point(0, 296)
+        Me.btnPreviousPhoto.Location = New System.Drawing.Point(0, 311)
         Me.btnPreviousPhoto.Name = "btnPreviousPhoto"
         Me.btnPreviousPhoto.Size = New System.Drawing.Size(46, 36)
         Me.btnPreviousPhoto.TabIndex = 3
@@ -134,7 +158,7 @@ Partial Class frmPhotoviewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1019, 605)
+        Me.ClientSize = New System.Drawing.Size(1019, 635)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.btnPreviousPhoto)
         Me.Controls.Add(Me.btnNextPhoto)
@@ -164,4 +188,9 @@ Partial Class frmPhotoviewer
     Friend WithEvents lblSize As ToolStripLabel
     Friend WithEvents lblResolution As ToolStripLabel
     Friend WithEvents lblFileName As ToolStripLabel
+    Friend WithEvents FlickrToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents btnAuthentication As ToolStripMenuItem
+    Friend WithEvents btnUploadToFlickr As ToolStripMenuItem
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
 End Class

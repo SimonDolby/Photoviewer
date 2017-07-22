@@ -1,10 +1,11 @@
 ﻿Imports System.IO
+Imports System.Threading
 Imports FlickrNet
 
 Public Class frmPhotoviewer
     Dim ImagesInFolder As New Stack
     Dim index As New Integer
-
+    Dim Upload As Thread
     Private Sub Stackinitialisation(ByVal GetLocation As String)
 
 
@@ -93,5 +94,20 @@ Public Class frmPhotoviewer
 
     End Sub
 
+    Private Sub btnAuthentication_Click(sender As Object, e As EventArgs) Handles btnAuthentication.Click
+        FlickrSetupvb.Show()
 
+    End Sub
+
+    Private Sub btnUploadToFlickr_Click(sender As Object, e As EventArgs) Handles btnUploadToFlickr.Click
+        Upload = New System.Threading.Thread(AddressOf UploadPhoto)
+        Upload.Start()
+
+    End Sub
+    Public Sub UploadPhoto()
+        Dim f = FlickrManagement.GetAuthInstance()
+        f.UploadPicture(IO.Path.GetFileName(pictImage.ImageLocation))
+        MessageBox.Show("Upload completed")
+
+    End Sub
 End Class
