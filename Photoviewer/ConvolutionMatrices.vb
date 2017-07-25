@@ -362,12 +362,6 @@ Public Class Convolution_Matrices
     ' The remaining functions just use the above methods combined with the matrices defined in Matrix.vb to apply the convolution to the images
 
 
-    Public Shared Function Laplacian3x3Filter(ByVal sourceBitmap As Bitmap, Optional ByVal grayscale As Boolean = True) As Bitmap
-        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Laplacian3x3, 1.0, 0, grayscale)
-
-
-        Return resultBitmap
-    End Function
 
 
     Public Shared Function Sharpen(ByVal sourceBitmap As Bitmap, Optional ByVal bias As Integer = 0, Optional ByVal grayscale As Boolean = False, Optional ByVal mono As Boolean = False, Optional ByVal medianFilterSize As Integer = 0) As Bitmap
@@ -385,26 +379,133 @@ Public Class Convolution_Matrices
         Return resultBitmap
     End Function
 
-
-    Public Shared Function SimpleEdgeDetect(ByVal sourceBitmap As Bitmap, Optional ByVal bias As Integer = 0, Optional ByVal grayscale As Boolean = True, Optional ByVal mono As Boolean = True, Optional ByVal medianFilterSize As Integer = 0) As Bitmap
-        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.SimpleEdgeDetection, 1.0, 0, grayscale)
-
+    Public Shared Function Laplacian3x3Filter(sourceBitmap As Bitmap, Optional grayscale As Boolean = True) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Laplacian3x3, 1.0, 0, grayscale)
 
         Return resultBitmap
     End Function
 
 
-    Public Shared Function Laplacian5x5(ByVal sourceBitmap As Bitmap, Optional ByVal bias As Integer = 0, Optional ByVal grayscale As Boolean = False, Optional ByVal mono As Boolean = False, Optional ByVal medianFilterSize As Integer = 0) As Bitmap
+    Public Shared Function Laplacian5x5FilterGrayscale(sourceBitmap As Bitmap, Optional grayscale As Boolean = True) As Bitmap
         Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Laplacian5x5, 1.0, 0, grayscale)
 
+        Return resultBitmap
+    End Function
+
+    Public Shared Function Laplacian5x5Filter(sourceBitmap As Bitmap, Optional grayscale As Boolean = True) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Laplacian5x5, 1.0, 0, grayscale)
 
         Return resultBitmap
     End Function
 
 
-    Public Shared Function Gaussian3x3(ByVal sourceBitmap As Bitmap, Optional ByVal bias As Integer = 0, Optional ByVal grayscale As Boolean = False, Optional ByVal mono As Boolean = False, Optional ByVal medianFilterSize As Integer = 0) As Bitmap
-        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Gaussian3x3, 1.0, 0, grayscale)
+    Public Shared Function LaplacianOfGaussianFilter(sourceBitmap As Bitmap) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.LaplacianOfGaussian, 1.0, 0, True)
 
+        Return resultBitmap
+    End Function
+
+
+    Public Shared Function Laplacian3x3OfGaussian3x3Filter(sourceBitmap As Bitmap) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Gaussian3x3, 1.0 / 16.0, 0, True)
+
+        resultBitmap = ConvolutionFilter(resultBitmap, Matrix.Laplacian3x3, 1.0, 0, False)
+
+        Return resultBitmap
+    End Function
+
+    Public Shared Function Laplacian3x3OfGaussian3x3FilterGrayscale(sourceBitmap As Bitmap) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Gaussian3x3, 1.0 / 16.0, 0, True)
+
+        resultBitmap = ConvolutionFilter(resultBitmap, Matrix.Laplacian3x3, 1.0, 0, )
+
+        Return resultBitmap
+    End Function
+
+
+
+    Public Shared Function Laplacian3x3OfGaussian5x5Filter1(sourceBitmap As Bitmap) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Gaussian5x5Type1, 1.0 / 159.0, 0, True)
+
+        resultBitmap = ConvolutionFilter(resultBitmap, Matrix.Laplacian3x3, 1.0, 0, False)
+
+        Return resultBitmap
+    End Function
+
+
+    Public Shared Function Laplacian3x3OfGaussian5x5Filter2(sourceBitmap As Bitmap) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Gaussian5x5Type2, 1.0 / 256.0, 0, True)
+
+        resultBitmap = ConvolutionFilter(resultBitmap, Matrix.Laplacian3x3, 1.0, 0, False)
+
+        Return resultBitmap
+    End Function
+
+
+    Public Shared Function Laplacian5x5OfGaussian3x3Filter(sourceBitmap As Bitmap) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Gaussian3x3, 1.0 / 16.0, 0, True)
+
+        resultBitmap = ConvolutionFilter(resultBitmap, Matrix.Laplacian5x5, 1.0, 0, False)
+
+        Return resultBitmap
+    End Function
+
+
+    Public Shared Function Laplacian5x5OfGaussian5x5Filter1(sourceBitmap As Bitmap) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Gaussian5x5Type1, 1.0 / 159.0, 0, True)
+
+        resultBitmap = ConvolutionFilter(resultBitmap, Matrix.Laplacian5x5, 1.0, 0, False)
+
+        Return resultBitmap
+    End Function
+
+
+    Public Shared Function Laplacian5x5OfGaussian5x5Filter2(sourceBitmap As Bitmap) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilter(sourceBitmap, Matrix.Gaussian5x5Type2, 1.0 / 256.0, 0, True)
+
+        resultBitmap = ConvolutionFilter(resultBitmap, Matrix.Laplacian5x5, 1.0, 0, False)
+
+        Return resultBitmap
+    End Function
+
+
+    Public Shared Function Sobel3x3Filter(sourceBitmap As Bitmap, Optional grayscale As Boolean = False) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilterVH(sourceBitmap, Matrix.Sobel3x3Horizontal, Matrix.Sobel3x3Vertical, 1.0, 0, grayscale)
+
+
+        Return resultBitmap
+    End Function
+    Public Shared Function Sobel3x3FilterGrayScale(sourceBitmap As Bitmap, Optional grayscale As Boolean = True) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilterVH(sourceBitmap, Matrix.Sobel3x3Horizontal, Matrix.Sobel3x3Vertical, 1.0, 0, grayscale)
+
+
+        Return resultBitmap
+    End Function
+
+
+
+    Public Shared Function PrewittFilter(sourceBitmap As Bitmap, Optional grayscale As Boolean = True) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilterVH(sourceBitmap, Matrix.Prewitt3x3Horizontal, Matrix.Prewitt3x3Vertical, 1.0, 0, grayscale)
+
+        Return resultBitmap
+    End Function
+
+    Public Shared Function PrewittFilterGrayscale(sourceBitmap As Bitmap, Optional grayscale As Boolean = False) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilterVH(sourceBitmap, Matrix.Prewitt3x3Horizontal, Matrix.Prewitt3x3Vertical, 1.0, 0, grayscale)
+
+        Return resultBitmap
+    End Function
+
+
+
+    Public Shared Function KirschFilter(sourceBitmap As Bitmap, Optional grayscale As Boolean = True) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilterVH(sourceBitmap, Matrix.Kirsch3x3Horizontal, Matrix.Kirsch3x3Vertical, 1.0, 0, grayscale)
+
+        Return resultBitmap
+    End Function
+
+    Public Shared Function KirschFilterGrayscale(sourceBitmap As Bitmap, Optional grayscale As Boolean = False) As Bitmap
+        Dim resultBitmap As Bitmap = ConvolutionFilterVH(sourceBitmap, Matrix.Kirsch3x3Horizontal, Matrix.Kirsch3x3Vertical, 1.0, 0, grayscale)
 
         Return resultBitmap
     End Function
